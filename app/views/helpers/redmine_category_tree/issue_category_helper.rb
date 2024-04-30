@@ -27,9 +27,8 @@ module RedmineCategoryTree
         end
 
         tag_options.merge!(yield(category)) if block_given?
-        s << tag.option(tag_options) do
-          name_prefix + h(category)
-        end
+        s << content_tag('option', name_prefix + h(category), tag_options)
+
       end
       s.html_safe
     end

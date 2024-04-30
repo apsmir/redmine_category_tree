@@ -9,11 +9,10 @@ Redmine::Plugin.register :redmine_category_tree do
 	requires_redmine :version_or_higher => '4.0.0'
 end
 
-require 'redmine_category_tree/hooks/redmine_category_tree_hooks'
+require_dependency File.dirname(__FILE__) + '/lib/redmine_category_tree/hooks/redmine_category_tree_hooks'
 require File.dirname(__FILE__) + '/app/views/helpers/redmine_category_tree/issue_category_helper.rb'
 
-Rails.configuration.to_prepare do
-#((Rails.version > "5")? ActiveSupport::Reloader : ActionDispatch::Callbacks).to_prepare do
+Rails.application.config.after_initialize do
 
   ## Helpers first
 	require_dependency 'application_helper'
