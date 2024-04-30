@@ -2,11 +2,11 @@ Redmine::Plugin.register :redmine_category_tree do
 	name 'Redmine Category Tree'
 	author 'Brett Patterson'
 	description 'Adds ability for categories to have "children"'
-	version '1.0.0'
+	version '1.0.1'
 	
 	permission :move_category, :issue_categories => :move_category
 
-	requires_redmine :version_or_higher => '4.0.0'
+	requires_redmine :version_or_higher => '5.1.2'
 end
 
 require_dependency File.dirname(__FILE__) + '/lib/redmine_category_tree/hooks/redmine_category_tree_hooks'

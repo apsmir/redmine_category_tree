@@ -1,36 +1,36 @@
 <% if @statuses.empty? or rows.empty? %>
-    <p><i><%=l(:label_no_data)%></i></p>
+	<p><i><%=l(:label_no_data)%></i></p>
 <% else %>
-<table class="list issue-report">
-<thead><tr>
-<th></th>
-<th><%=l(:label_open_issues_plural)%></th>
-<th><%=l(:label_closed_issues_plural)%></th>
-<th><%=l(:label_total)%></th>
-</tr></thead>
-<tbody>
-<% for row in rows %>
-<%
-	rowClass = ""
-	if field_name == 'category_id'
-		rowClass = "issue_category"
-		categoryTree = row.self_and_ancestors()
-		issue_category_tree(categoryTree) { | rowName, level |
-			row.name = rowName
-			if level > 0
-				rowClass += " idnt idnt-#{level}"
-			end
-		}
-	end
-%>
-<tr class="<%= cycle("odd", "even") %> <%= rowClass %>">
-  <td class="name"><%= '<span>' if field_name == "category_id" %><%= link_to row.name, aggregate_path(@project, field_name, row, :subproject_id => nil) %><%= '</span>' if field_name == "category_id" %></td>
-  <td><%= aggregate_link data, { field_name => row.id, "closed" => 0 }, aggregate_path(@project, field_name, row, :status_id => "o", :subproject_id => nil) %></td>
-  <td><%= aggregate_link data, { field_name => row.id, "closed" => 1 }, aggregate_path(@project, field_name, row, :status_id => "c", :subproject_id => nil) %></td>
-  <td><%= aggregate_link data, { field_name => row.id }, aggregate_path(@project, field_name, row, :status_id => "*", :subproject_id => nil) %></td>
-</tr>
-<% end %>
-</tbody>
-</table>
+	<table class="list issue-report">
+		<thead><tr>
+			<th></th>
+			<th><%=l(:label_open_issues_plural)%></th>
+			<th><%=l(:label_closed_issues_plural)%></th>
+			<th><%=l(:label_total)%></th>
+		</tr></thead>
+		<tbody>
+		<% for row in rows %>
+			<%
+				rowClass = ""
+				if field_name == 'category_id'
+					rowClass = "issue_category"
+					categoryTree = row.self_and_ancestors()
+					issue_category_tree(categoryTree) { | rowName, level |
+						row.name = rowName
+						if level > 0
+							rowClass += " idnt idnt-#{level}"
+						end
+					}
+				end
+			%>
+			<tr class="<%= cycle("odd", "even") %> <%= rowClass %>">
+				<td class="name"><%= '<span>' if field_name == "category_id" %><%= link_to row.name, aggregate_path(@project, field_name, row, :subproject_id => nil) %><%= '</span>' if field_name == "category_id" %></td>
+				<td><%= aggregate_link data, { field_name => row.id, "closed" => 0 }, aggregate_path(@project, field_name, row, :status_id => "o", :subproject_id => nil) %></td>
+				<td><%= aggregate_link data, { field_name => row.id, "closed" => 1 }, aggregate_path(@project, field_name, row, :status_id => "c", :subproject_id => nil) %></td>
+				<td><%= aggregate_link data, { field_name => row.id }, aggregate_path(@project, field_name, row, :status_id => "*", :subproject_id => nil) %></td>
+			</tr>
+		<% end %>
+		</tbody>
+	</table>
 <% end %>
 <% reset_cycle %>
