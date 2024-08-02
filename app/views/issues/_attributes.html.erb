@@ -33,7 +33,7 @@
       <% end %>
 
       <% if @issue.safe_attribute?('category_id') && @issue.project.issue_categories.any? %>
-        <p><%= f.select :category_id, (@issue.project.issue_categories.collect {|c| [c.name, c.id]}),
+        <p><%= f.select :category_id, issue_category_tree_options_for_select(@issue.project.issue_categories, :selected => @issue.category_id),
                         {:include_blank => true, :required => @issue.required_attribute?('category_id')},
                         :onchange => ("updateIssueFrom('#{escape_javascript(update_issue_form_path(@project, @issue))}', this)" if @issue.new_record?) %>
           <%= link_to(l(:label_issue_category_new),
