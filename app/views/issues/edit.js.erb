@@ -1,0 +1,22 @@
+replaceIssueFormWith('<%= escape_javascript(render :partial => 'form') %>');
+<% if User.current.allowed_to?(:log_time, @issue.project) %>
+  $('#log_time').show();
+<% else %>
+  $('#log_time').hide();
+<% end %>
+
+<% if @issue.notes_addable? %>
+  $('#add_notes').show();
+  $('#add_attachments').show();
+<% else %>
+  $('#add_notes').hide();
+  $('#add_attachments').hide();
+<% end %>
+<% case params[:form_update_triggered_by] %>
+<% when "issue_category_id" %>
+if (!$('#issue_assigned_to_id').val()) {
+    $('#issue_assigned_to_id').find('option').first().html(
+        '<%= escape_javascript(
+           @issue.category.try(:assigned_to).try(:name)).presence || '&nbsp;'.html_safe %>');
+}
+<% end %>
