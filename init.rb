@@ -12,7 +12,7 @@ end
 require_dependency File.dirname(__FILE__) + '/lib/redmine_category_tree/hooks/redmine_category_tree_hooks'
 require File.dirname(__FILE__) + '/app/views/helpers/redmine_category_tree/issue_category_helper.rb'
 
-Rails.application.config.after_initialize do
+#Rails.application.config.after_initialize do
 
   ## Helpers first
 	require_dependency 'application_helper'
@@ -66,4 +66,4 @@ Rails.application.config.after_initialize do
 	unless ContextMenusController.included_modules.include?(RedmineCategoryTree::Patches::ContextMenusControllerPatch)
 		ContextMenusController.send(:prepend, RedmineCategoryTree::Patches::ContextMenusControllerPatch)
 	end
-end
+#end
